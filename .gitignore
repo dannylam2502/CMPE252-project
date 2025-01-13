@@ -27,3 +27,9 @@
 # Ignore specific local settings
 .DS_Store
 *.swp
+
+UnityProject/AILearn/.vsconfig
+UnityProject/AILearn/Library
+UnityProject/AILearn/Temp
+UnityProject/AILearn/UserSettings
+
