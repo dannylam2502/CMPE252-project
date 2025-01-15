@@ -9,10 +9,17 @@ using Unity.MLAgents.Sensors;
 public class MoveToTargetAgent :  Agent
 {
     [SerializeField] private Transform target;
+    private float distanceTraveled = 0;
+    private int wallContact = 0;
     //[SerializeField] private gameObject backgroundSpriteRender;
-
+    private void EpisodeStats()
+    {
+        Debug.LogFormat("distanceTraveled :{0}\nwallContact :{1}\n", distanceTraveled, wallContact);
+    }
     public override void OnEpisodeBegin()
     {
+        distanceTraveled = 0;
+        wallContact = 0;
         Renderer planeRenderer = GameObject.Find("Plane").GetComponent<Renderer>();
         planeRenderer.material.SetColor("_Color", Color.gray);
         //Vector3(x,0,z), y=0 so it player on target stay on the ground.
@@ -24,15 +31,43 @@ public class MoveToTargetAgent :  Agent
     {
         sensor.AddObservation((Vector2)transform.position);
         sensor.AddObservation((Vector2)target.position);
+        // Add a distance punishement.
+        float targetDistance = Vector2.Distance((Vector2)target.position, (Vector2)transform.position);
+        sensor.AddObservation(targetDistance);
+        sensor.AddObservation(distanceTraveled);
+        //int episode_steps = Academy.Instance.StepCount;
+        //sensor.AddObservation(episode_steps);
+        float targetDistanceReward = 1 / (targetDistance);
+        AddReward(targetDistanceReward);
+
+        float travelPunishment = 0;
+        if (distanceTraveled == 0)
+        {
+            travelPunishment = 0;
+        }
+        else
+        {
+            travelPunishment = System.MathF.Log(distanceTraveled);
+        }
+        AddReward(-travelPunishment);
+
+        //float punishment = System.MathF.Log(dist);
+        //sensor.AddObservation(punishment);
+        //AddReward(-punishment);
+
+   
     }
     public override void OnActionReceived(ActionBuffers actions) {
         float moveX = actions.ContinuousActions[0];
         float moveY = actions.ContinuousActions[1];
 
-        float movementSpeed = 5f;
+        float movementSpeed = 20f;
 
         //Vector3(x,0,z), y=0 so it player's movement stays on the ground.
-        transform.localPosition += new Vector3(moveX,0, moveY) * Time.deltaTime * movementSpeed;
+        Vector3 move = new Vector3(moveX,0, moveY) * Time.deltaTime * movementSpeed;
+        distanceTraveled += Vector3.Distance(move,transform.localPosition);
+        transform.localPosition += move;
+        //transform.localPosition += new Vector3(moveX,0, moveY) * Time.deltaTime * movementSpeed;
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -45,20 +80,23 @@ public class MoveToTargetAgent :  Agent
     private void OnCollisionEnter(Collision collision)
     {
         //Debug.Log("hi");
+
         if (collision.gameObject.tag == "target") {
-            AddReward(10f);
+            AddReward(1000f);
             //backgroundSpriteRender.color = Color.green;
 
             Renderer planeRenderer = GameObject.Find("Plane").GetComponent<Renderer>();
             planeRenderer.material.SetColor("_Color", Color.green);
-                //.color = Color.green;
+            //.color = Color.green;
+            EpisodeStats();
             EndEpisode();
         }
         else if (collision.gameObject.tag == "wall")
         {
-            AddReward(-2f);
+            AddReward(-200f);
             Renderer planeRenderer = GameObject.Find("Plane").GetComponent<Renderer>();
             planeRenderer.material.SetColor("_Color", Color.red);
+            wallContact += 1;
             EndEpisode();
         }
 
