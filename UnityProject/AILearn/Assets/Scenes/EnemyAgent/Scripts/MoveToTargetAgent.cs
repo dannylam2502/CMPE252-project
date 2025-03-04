@@ -77,11 +77,11 @@ public class MoveToTargetAgent :  Agent
         continuousActions[1] = Input.GetAxisRaw("Vertical");
     }
     //The collision isn't working, need to find a fix.
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
         //Debug.Log("hi");
 
-        if (collision.gameObject.tag == "target") {
+        if (collider.gameObject.tag == "target") {
             AddReward(1000f);
             //backgroundSpriteRender.color = Color.green;
 
@@ -91,7 +91,7 @@ public class MoveToTargetAgent :  Agent
             EpisodeStats();
             EndEpisode();
         }
-        else if (collision.gameObject.tag == "wall")
+        else if (collider.gameObject.tag == "wall")
         {
             AddReward(-200f);
             Renderer planeRenderer = GameObject.Find("Plane").GetComponent<Renderer>();
@@ -103,3 +103,4 @@ public class MoveToTargetAgent :  Agent
     }
    
 }
+
