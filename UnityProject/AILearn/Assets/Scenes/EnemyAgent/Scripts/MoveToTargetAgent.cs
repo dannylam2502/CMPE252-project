@@ -64,7 +64,7 @@ public class MoveToTargetAgent :  Agent
         float movementSpeed = 20f;
 
         //Vector3(x,0,z), y=0 so it player's movement stays on the ground.
-        Vector3 move = new Vector3(moveX,0, moveY) * Time.deltaTime * movementSpeed;
+        Vector3 move = new Vector3(moveX, 0, moveY) * Time.deltaTime * movementSpeed;
         distanceTraveled += Vector3.Distance(move,transform.localPosition);
         transform.localPosition += move;
         //transform.localPosition += new Vector3(moveX,0, moveY) * Time.deltaTime * movementSpeed;
@@ -77,11 +77,13 @@ public class MoveToTargetAgent :  Agent
         continuousActions[1] = Input.GetAxisRaw("Vertical");
     }
     //The collision isn't working, need to find a fix.
-    private void OnTriggerEnter(Collider collider)
+
+    private void OnCollisionEnter(Collision collision)
     {
         //Debug.Log("hi");
 
-        if (collider.gameObject.tag == "target") {
+        if (collision.gameObject.tag == "target")
+        {
             AddReward(1000f);
             //backgroundSpriteRender.color = Color.green;
 
@@ -91,7 +93,7 @@ public class MoveToTargetAgent :  Agent
             EpisodeStats();
             EndEpisode();
         }
-        else if (collider.gameObject.tag == "wall")
+        else if (collision.gameObject.tag == "wall")
         {
             AddReward(-200f);
             Renderer planeRenderer = GameObject.Find("Plane").GetComponent<Renderer>();
@@ -99,8 +101,6 @@ public class MoveToTargetAgent :  Agent
             wallContact += 1;
             EndEpisode();
         }
-
     }
-   
 }
 

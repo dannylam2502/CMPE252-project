@@ -4,7 +4,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public bool collision = false;
     private Rigidbody rb;
     private Vector3 moveDirection;
 
@@ -34,26 +33,6 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayer()
     {
-        if (!collision)
-        {
-            rb.linearVelocity = moveDirection * moveSpeed + new Vector3(0, rb.linearVelocity.y, 0);
-        }
-        else
-        {
-            rb.linearVelocity = -(moveDirection * moveSpeed + new Vector3(0, rb.linearVelocity.y, 0));
-        }
-    }
-
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.gameObject.tag == "wall")
-        {
-            collision = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider collider)
-    {
-        collision = false;
+        rb.linearVelocity = moveDirection * moveSpeed + new Vector3(0, rb.linearVelocity.y, 0);
     }
 }
