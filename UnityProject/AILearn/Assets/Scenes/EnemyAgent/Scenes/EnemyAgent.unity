@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 94712602}
   - component: {fileID: 94712601}
   - component: {fileID: 94712600}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: wall
   m_Icon: {fileID: 0}
@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 230559459}
   - component: {fileID: 230559458}
   - component: {fileID: 230559457}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (3)
   m_TagString: wall
   m_Icon: {fileID: 0}
@@ -385,8 +385,8 @@ Transform:
   m_GameObject: {fileID: 230559456}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 2.6758, y: 3.4, z: -9.86}
-  m_LocalScale: {x: 1, y: 6.0101376, z: 32.598965}
+  m_LocalPosition: {x: 2.5, y: 3.4, z: -9.86}
+  m_LocalScale: {x: 1, y: 6.0101376, z: 33.135597}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -402,6 +402,7 @@ GameObject:
   - component: {fileID: 272896991}
   - component: {fileID: 272896990}
   - component: {fileID: 272896989}
+  - component: {fileID: 272896992}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -450,7 +451,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 59.3
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -476,13 +477,57 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 272896988}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.23611154, y: -0.082904175, z: -0.00042957324, w: 0.96818286}
-  m_LocalPosition: {x: 8.2, y: 22.23, z: -21.76}
+  m_LocalRotation: {x: 0.69675624, y: -0.00995669, z: -0.0067904857, w: 0.7172068}
+  m_LocalPosition: {x: 3.6, y: 54.7, z: 6.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 27.202, y: -10.412, z: -2.576}
+  m_LocalEulerAnglesHint: {x: 87.858, y: -39.443, z: -39.186}
+--- !u!114 &272896992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272896988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &306202115
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,7 +541,7 @@ GameObject:
   - component: {fileID: 306202118}
   - component: {fileID: 306202117}
   - component: {fileID: 306202116}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: wall
   m_Icon: {fileID: 0}
@@ -883,10 +928,10 @@ GameObject:
   - component: {fileID: 888398109}
   - component: {fileID: 888398108}
   - component: {fileID: 888398107}
-  - component: {fileID: 888398106}
   - component: {fileID: 888398112}
-  - component: {fileID: 888398111}
   - component: {fileID: 888398113}
+  - component: {fileID: 888398115}
+  - component: {fileID: 888398114}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -894,23 +939,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &888398106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 888398105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d9dc74743d7a2245bf46763ece76705, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
-  target: {fileID: 923806801}
 --- !u!65 &888398107
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1000,21 +1028,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &888398111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 888398105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecisionPeriod: 5
-  DecisionStep: 0
-  TakeActionsBetweenDecisions: 1
 --- !u!114 &888398112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1031,16 +1044,16 @@ MonoBehaviour:
     VectorObservationSize: 6
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 3
-      BranchSizes: 
-    VectorActionSize: 03000000
+      m_NumContinuousActions: 0
+      BranchSizes: 04000000
+    VectorActionSize: 04000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 1
+    VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: dafc8c3ce3c83fb48b1416e94a1ca3ad, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: MoveToTarget
+  m_BehaviorName: EnemyAgent
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -1071,8 +1084,42 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &888398114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888398105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  DecisionStep: 0
+  TakeActionsBetweenDecisions: 1
+--- !u!114 &888398115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888398105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931f87bf3d168c747af3c1fe523ceb6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 5000
+  _goal: {fileID: 923806801}
+  _moveSpeed: 4
+  _rotationSpeed: 180
 --- !u!1 &923806797
 GameObject:
   m_ObjectHideFlags: 0
@@ -1085,7 +1132,7 @@ GameObject:
   - component: {fileID: 923806800}
   - component: {fileID: 923806799}
   - component: {fileID: 923806798}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: target
   m_Icon: {fileID: 0}
@@ -1107,7 +1154,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1175,7 +1222,7 @@ Transform:
   m_GameObject: {fileID: 923806797}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.295, y: 0.537, z: 6.323557}
+  m_LocalPosition: {x: 1.295, y: 0.537, z: 6.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1194,7 +1241,7 @@ GameObject:
   - component: {fileID: 2130902608}
   - component: {fileID: 2130902607}
   - component: {fileID: 2130902606}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (4)
   m_TagString: wall
   m_Icon: {fileID: 0}

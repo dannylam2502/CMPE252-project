@@ -1,0 +1,172 @@
+using UnityEngine;
+using Unity.MLAgents;
+using Unity.MLAgents.Actuators;
+using Unity.MLAgents.Sensors;
+using System.Collections.Generic;
+using System;
+
+public class EnemyAgent : Agent
+{
+    [SerializeField] private Transform _goal;
+    [SerializeField] private float _moveSpeed = 1.5f;
+    [SerializeField] private float _rotationSpeed = 180f;
+
+    private Renderer _renderer;
+
+    private int _currentEpisode = 0;
+    private float _cumulativeReward = 0f;
+
+    public override void Initialize()
+    {
+        Debug.Log("Initialize()");
+        _renderer = GetComponent<Renderer>();
+        _currentEpisode = 0;
+        _cumulativeReward = 0f;
+    }
+
+    public override void OnEpisodeBegin()
+    {
+        Debug.Log("OnEpisodeBegin()");
+        _currentEpisode++;
+        _cumulativeReward = 0f;
+        _renderer.material.color = Color.blue;
+
+        SpawnObjects();
+    }
+
+    private void SpawnObjects()
+    {
+        transform.localRotation = Quaternion.identity;
+        transform.localPosition = new Vector3(0f, 0.6f, 0f);
+
+        float randomAngle = UnityEngine.Random.Range(0f, 360f);
+        Vector3 randomDirection = Quaternion.Euler(0f, randomAngle, 0f) * Vector3.forward;
+
+        float randomDistance = UnityEngine.Random.Range(-10f, 9.0f);
+
+        Vector3 goalPosition = transform.localPosition + randomDirection * randomDistance;
+
+        _goal.localPosition = new Vector3(goalPosition.x, 0.3f, goalPosition.z);
+    }
+    // Return the minimum normalized distance of the closest wall.
+    private float minWallProximity()
+    {
+        Collider[] proximity = new Collider[4];
+        int radius = 5;
+        float minNormDistance = 1;
+        Physics.OverlapSphereNonAlloc(transform.position, radius, proximity);
+        //Collider[] proximity = Physics.OverlapSphere(transform.position, radius);
+
+        for (int i = 0; i < proximity.Length; i++)
+        {
+            if (proximity[i] == null || !proximity[i].gameObject.CompareTag("wall"))
+            {
+                continue;
+            }
+
+            //Debug.LogFormat("tranform.position: {0}",transform.position);
+            Vector3 closestPoint = proximity[i].ClosestPoint(transform.position);
+            //Debug.LogFormat("closestPoint: {0}", proximity[i].transform.position);
+            float normDistance = Vector3.Distance(transform.position, proximity[i].transform.position) / radius;
+            //Debug.LogFormat("normDistance: {0}",normDistance);
+            minNormDistance = Math.Min(minNormDistance, normDistance);
+        }
+        //Debug.LogFormat("minNormDistance: {0}",minNormDistance);
+        if (minNormDistance < 1)
+        {
+            AddReward(-0.01f * Time.fixedDeltaTime);
+        }
+        return minNormDistance;
+    }
+
+    public override void CollectObservations(VectorSensor sensor)
+    {
+        //Debug.Log("CollectObservationos()");
+        float goalPosX_normalized = _goal.localPosition.x / 5f;
+        float goalPosZ_normalized = _goal.localPosition.z / 5f;
+
+        float enemyPosX_normalized = transform.localPosition.x / 5f;
+        float enemyPosZ_normalized = transform.localPosition.z / 5f;
+        float enemyRotation_normalized = (transform.localRotation.eulerAngles.y / 360f) * 2f - 1f;
+        float wallProximity_normalized = minWallProximity();
+        sensor.AddObservation(goalPosX_normalized);
+        sensor.AddObservation(goalPosZ_normalized);
+        sensor.AddObservation(enemyPosX_normalized);
+        sensor.AddObservation(enemyPosZ_normalized);
+        sensor.AddObservation(enemyRotation_normalized);
+        sensor.AddObservation(wallProximity_normalized);
+    }
+
+    public override void OnActionReceived(ActionBuffers actions)
+    {
+        MoveAgent(actions.DiscreteActions);
+
+        AddReward(-2f / MaxStep);
+
+        _cumulativeReward = GetCumulativeReward();
+
+    }
+
+    public void MoveAgent(ActionSegment<int> act)
+    {
+        var action = act[0];
+        switch (action)
+        {
+            case 1: //Forward
+                transform.position += transform.forward * _moveSpeed * Time.deltaTime;
+                break;
+            case 2: //Rotate left
+                transform.Rotate(0f, -_rotationSpeed * Time.deltaTime, 0f);
+                break;
+            case 3: //Rotate right
+                transform.Rotate(0f, _rotationSpeed * Time.deltaTime, 0f);
+                break;
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("target"))
+        {
+            GoalReached();
+        }
+    }
+    private void GoalReached()
+    {
+        AddReward(1.0f);
+        _cumulativeReward = GetCumulativeReward();
+        EndEpisode();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("wall"))
+        {
+            AddReward(-0.05f);
+            if (_renderer != null)
+            {
+                _renderer.material.color = Color.red;
+            }
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if ( collision.gameObject.CompareTag("wall"))
+        {
+            AddReward(-0.01f * Time.fixedDeltaTime);
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("wall"))
+        {
+            if (_renderer != null)
+            {
+                _renderer.material.color = Color.blue;
+            }
+        }
+    }
+}
+

@@ -1,0 +1,65 @@
+{
+    "EnemyAgent": {
+        "checkpoints": [
+            {
+                "steps": 499590,
+                "file_path": "results\\enemy_agent_fast\\EnemyAgent\\EnemyAgent-499590.onnx",
+                "reward": -0.39758009016513823,
+                "creation_time": 1741464607.7695918,
+                "auxillary_file_paths": [
+                    "results\\enemy_agent_fast\\EnemyAgent\\EnemyAgent-499590.pt"
+                ]
+            },
+            {
+                "steps": 500590,
+                "file_path": "results\\enemy_agent_fast\\EnemyAgent\\EnemyAgent-500590.onnx",
+                "reward": -0.5431819205934351,
+                "creation_time": 1741464607.850005,
+                "auxillary_file_paths": [
+                    "results\\enemy_agent_fast\\EnemyAgent\\EnemyAgent-500590.pt"
+                ]
+            },
+            {
+                "steps": 800094,
+                "file_path": "results\\enemy_agent_fast\\EnemyAgent\\EnemyAgent-800094.onnx",
+                "reward": 0.43155550294452244,
+                "creation_time": 1741466407.73722,
+                "auxillary_file_paths": [
+                    "results\\enemy_agent_fast\\EnemyAgent\\EnemyAgent-800094.pt"
+                ]
+            },
+            {
+                "steps": 999780,
+                "file_path": "results\\enemy_agent_fast\\EnemyAgent\\EnemyAgent-999780.onnx",
+                "reward": 0.9107799896597862,
+                "creation_time": 1741467705.8817437,
+                "auxillary_file_paths": [
+                    "results\\enemy_agent_fast\\EnemyAgent\\EnemyAgent-999780.pt"
+                ]
+            },
+            {
+                "steps": 1200548,
+                "file_path": "results\\enemy_agent_fast\\EnemyAgent\\EnemyAgent-1200548.onnx",
+                "reward": 0.8776449348484532,
+                "creation_time": 1741468837.629317,
+                "auxillary_file_paths": [
+                    "results\\enemy_agent_fast\\EnemyAgent\\EnemyAgent-1200548.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1200548,
+            "file_path": "results\\enemy_agent_fast\\EnemyAgent.onnx",
+            "reward": 0.8776449348484532,
+            "creation_time": 1741468837.629317,
+            "auxillary_file_paths": [
+                "results\\enemy_agent_fast\\EnemyAgent\\EnemyAgent-1200548.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}
