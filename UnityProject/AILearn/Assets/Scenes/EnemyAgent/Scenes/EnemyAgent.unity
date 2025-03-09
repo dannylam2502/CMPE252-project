@@ -1050,7 +1050,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 96ab1ace9cf9e5540a9cac9dbcf2a6c5, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: EnemyAgent
@@ -1118,7 +1118,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
   _goal: {fileID: 923806801}
-  _moveSpeed: 4
+  _moveSpeed: 12
   _rotationSpeed: 180
 --- !u!1 &923806797
 GameObject:
