@@ -13,6 +13,11 @@ public class MoveToTargetAgent :  Agent
     private int wallContact = 0;
     private float distance = 0;
     //[SerializeField] private gameObject backgroundSpriteRender;
+    private Vector3 originalPos = Vector3.zero;
+    private void Awake()
+    {
+        originalPos = transform.position;
+    }
     private void EpisodeStats()
     {
         Debug.LogFormat("distanceTraveled :{0}\nwallContact :{1}\n", distanceTraveled, wallContact);
@@ -25,8 +30,9 @@ public class MoveToTargetAgent :  Agent
         Renderer planeRenderer = GameObject.Find("Plane").GetComponent<Renderer>();
         planeRenderer.material.SetColor("_Color", Color.gray);
         //Vector3(x,0,z), y=0 so it player on target stay on the ground.
-        transform.position = new Vector3(Random.Range(-10.5f, 16.5f),0.6f,Random.Range(-7.5f, 19.2f));
-        target.position = new Vector3(Random.Range(-10.5f, 16.5f),0.6f,Random.Range(-7.5f, 19.2f));
+        //transform.position = new Vector3(Random.Range(-10.5f, 16.5f),0.6f,Random.Range(-7.5f, 19.2f));
+        transform.position = originalPos;
+        //target.position = new Vector3(Random.Range(-10.5f, 16.5f), originalPos.y, Random.Range(-7.5f, 19.2f));
     }
 
     public override void CollectObservations(VectorSensor sensor)

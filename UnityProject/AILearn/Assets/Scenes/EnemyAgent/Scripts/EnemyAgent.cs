@@ -15,6 +15,7 @@ public class EnemyAgent : Agent
 
     private int _currentEpisode = 0;
     private float _cumulativeReward = 0f;
+    private Vector3 _orgPos = Vector3.zero; // The original pos of this gameobj
 
     public override void Initialize()
     {
@@ -22,6 +23,7 @@ public class EnemyAgent : Agent
         _renderer = GetComponent<Renderer>();
         _currentEpisode = 0;
         _cumulativeReward = 0f;
+        _orgPos = transform.position;
     }
 
     public override void OnEpisodeBegin()
@@ -36,17 +38,18 @@ public class EnemyAgent : Agent
 
     private void SpawnObjects()
     {
-        transform.localRotation = Quaternion.identity;
-        transform.localPosition = new Vector3(0f, 0.6f, 0f);
+        transform.position = _orgPos;
+        //transform.localRotation = Quaternion.identity;
+        //transform.localPosition = new Vector3(0f, 0.6f, 0f);
 
-        float randomAngle = UnityEngine.Random.Range(0f, 360f);
-        Vector3 randomDirection = Quaternion.Euler(0f, randomAngle, 0f) * Vector3.forward;
+        //float randomAngle = UnityEngine.Random.Range(0f, 360f);
+        //Vector3 randomDirection = Quaternion.Euler(0f, randomAngle, 0f) * Vector3.forward;
 
-        float randomDistance = UnityEngine.Random.Range(-10f, 9.0f);
+        //float randomDistance = UnityEngine.Random.Range(-10f, 9.0f);
 
-        Vector3 goalPosition = transform.localPosition + randomDirection * randomDistance;
+        //Vector3 goalPosition = transform.localPosition + randomDirection * randomDistance;
 
-        _goal.localPosition = new Vector3(goalPosition.x, 0.3f, goalPosition.z);
+        //_goal.localPosition = new Vector3(goalPosition.x, 0.3f, goalPosition.z);
     }
     // Return the minimum normalized distance of the closest wall.
     private float minWallProximity()
@@ -126,8 +129,9 @@ public class EnemyAgent : Agent
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("target"))
+        if (other.gameObject.transform.parent.CompareTag("target"))
         {
+            Debug.LogError("Goal Reached");
             GoalReached();
         }
     }
@@ -136,6 +140,12 @@ public class EnemyAgent : Agent
         AddReward(1.0f);
         _cumulativeReward = GetCumulativeReward();
         EndEpisode();
+        // On Player Hit
+        var component = _goal.gameObject.GetComponent<PlayerController>();
+        if (component != null)
+        {
+            component.OnHitByEnemy(this.gameObject);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
