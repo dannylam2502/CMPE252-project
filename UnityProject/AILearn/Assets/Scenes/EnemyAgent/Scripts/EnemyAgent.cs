@@ -8,8 +8,11 @@ using System;
 public class EnemyAgent : Agent
 {
     [SerializeField] private Transform _goal;
+    [SerializeField] private GameObject _ground;
     [SerializeField] private float _moveSpeed = 1.5f;
     [SerializeField] private float _rotationSpeed = 180f;
+    //[SerializeField] private float _minRandomGoalLoc = -10f;
+    //[SerializeField] private float _maxRandomGoalLoc = 9.00f;
 
     private Renderer _renderer;
 
@@ -37,13 +40,15 @@ public class EnemyAgent : Agent
     private void SpawnObjects()
     {
         transform.localRotation = Quaternion.identity;
-        transform.localPosition = new Vector3(0f, 0.6f, 0f);
+        transform.localPosition = new Vector3(0f, 0.3f, 0f);
 
+        Bounds bounds = _ground.GetComponent<Collider>().bounds;
         float randomAngle = UnityEngine.Random.Range(0f, 360f);
         Vector3 randomDirection = Quaternion.Euler(0f, randomAngle, 0f) * Vector3.forward;
 
-        float randomDistance = UnityEngine.Random.Range(-10f, 9.0f);
-
+        //float randomDistance = UnityEngine.Random.Range(_minRandomGoalLoc, _maxRandomGoalLoc);
+        float randomDistance = UnityEngine.Random.Range(-bounds.extents.x, bounds.extents.x);
+        
         Vector3 goalPosition = transform.localPosition + randomDirection * randomDistance;
 
         _goal.localPosition = new Vector3(goalPosition.x, 0.3f, goalPosition.z);
@@ -82,19 +87,23 @@ public class EnemyAgent : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         //Debug.Log("CollectObservationos()");
-        float goalPosX_normalized = _goal.localPosition.x / 5f;
-        float goalPosZ_normalized = _goal.localPosition.z / 5f;
+        Bounds bounds = _ground.GetComponent<Collider>().bounds;
+        float maxX = bounds.extents.x;
+        float maxZ = bounds.extents.z;
+        float goalPosX_normalized = _goal.localPosition.x / maxX;
+        float goalPosZ_normalized = _goal.localPosition.z / maxZ;
 
-        float enemyPosX_normalized = transform.localPosition.x / 5f;
-        float enemyPosZ_normalized = transform.localPosition.z / 5f;
+        float enemyPosX_normalized = transform.localPosition.x / maxX;
+        float enemyPosZ_normalized = transform.localPosition.z / maxZ;
+        //Debug.LogFormat("goalX={0}, maxX={1}, goalPosX_normalized={2}", _goal.localPosition.x, maxX, goalPosX_normalized);
         float enemyRotation_normalized = (transform.localRotation.eulerAngles.y / 360f) * 2f - 1f;
-        float wallProximity_normalized = minWallProximity();
+        //float wallProximity_normalized = minWallProximity();
         sensor.AddObservation(goalPosX_normalized);
         sensor.AddObservation(goalPosZ_normalized);
         sensor.AddObservation(enemyPosX_normalized);
         sensor.AddObservation(enemyPosZ_normalized);
         sensor.AddObservation(enemyRotation_normalized);
-        sensor.AddObservation(wallProximity_normalized);
+        //sensor.AddObservation(wallProximity_normalized);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
