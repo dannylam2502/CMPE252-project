@@ -41,9 +41,9 @@ public class EnemyAgent : Agent
 
     private void SpawnObjects()
     {
-        transform.position = _orgPos;
-        //transform.localRotation = Quaternion.identity;
-        //transform.localPosition = new Vector3(0f, 0.3f, 0f);
+        //transform.position = _orgPos;
+        transform.localRotation = Quaternion.identity;
+        transform.localPosition = new Vector3(0f, 0.62f, 0f);
 
         Bounds bounds = _ground.GetComponent<Collider>().bounds;
         float randomAngle = UnityEngine.Random.Range(0f, 360f);
