@@ -6,11 +6,13 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     private Rigidbody rb;
     private Vector3 moveDirection;
+    private Vector3 _startPos;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true; // Prevents unwanted rotations due to physics
+        _startPos = transform.position;
     }
 
     void Update()
@@ -34,5 +36,11 @@ public class PlayerController : MonoBehaviour
     void MovePlayer()
     {
         rb.linearVelocity = moveDirection * moveSpeed + new Vector3(0, rb.linearVelocity.y, 0);
+    }
+
+    public void OnHitByEnemy(GameObject enemy)
+    {
+        Debug.LogError("Player got hit by " + enemy.name);
+        transform.position = _startPos;
     }
 }
