@@ -2,22 +2,49 @@
     "EnemyAgent": {
         "checkpoints": [
             {
-                "steps": 104827,
-                "file_path": "results\\main_enemy_agent_faster_proximity\\EnemyAgent\\EnemyAgent-104827.onnx",
-                "reward": -1.4549312710762023,
-                "creation_time": 1741573614.5625417,
+                "steps": 293552,
+                "file_path": "results\\main_enemy_agent_faster_proximity\\EnemyAgent\\EnemyAgent-293552.onnx",
+                "reward": -6.194385886192322,
+                "creation_time": 1741589964.5123532,
                 "auxillary_file_paths": [
-                    "results\\main_enemy_agent_faster_proximity\\EnemyAgent\\EnemyAgent-104827.pt"
+                    "results\\main_enemy_agent_faster_proximity\\EnemyAgent\\EnemyAgent-293552.pt"
+                ]
+            },
+            {
+                "steps": 499856,
+                "file_path": "results\\main_enemy_agent_faster_proximity\\EnemyAgent\\EnemyAgent-499856.onnx",
+                "reward": -3.2534321418830325,
+                "creation_time": 1741621462.5704882,
+                "auxillary_file_paths": [
+                    "results\\main_enemy_agent_faster_proximity\\EnemyAgent\\EnemyAgent-499856.pt"
+                ]
+            },
+            {
+                "steps": 999873,
+                "file_path": "results\\main_enemy_agent_faster_proximity\\EnemyAgent\\EnemyAgent-999873.onnx",
+                "reward": -0.7974043786525726,
+                "creation_time": 1741624595.8728096,
+                "auxillary_file_paths": [
+                    "results\\main_enemy_agent_faster_proximity\\EnemyAgent\\EnemyAgent-999873.pt"
+                ]
+            },
+            {
+                "steps": 1200587,
+                "file_path": "results\\main_enemy_agent_faster_proximity\\EnemyAgent\\EnemyAgent-1200587.onnx",
+                "reward": -2.844005453586578,
+                "creation_time": 1741626446.8059175,
+                "auxillary_file_paths": [
+                    "results\\main_enemy_agent_faster_proximity\\EnemyAgent\\EnemyAgent-1200587.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 104827,
+            "steps": 1200587,
             "file_path": "results\\main_enemy_agent_faster_proximity\\EnemyAgent.onnx",
-            "reward": -1.4549312710762023,
-            "creation_time": 1741573614.5625417,
+            "reward": -2.844005453586578,
+            "creation_time": 1741626446.8059175,
             "auxillary_file_paths": [
-                "results\\main_enemy_agent_faster_proximity\\EnemyAgent\\EnemyAgent-104827.pt"
+                "results\\main_enemy_agent_faster_proximity\\EnemyAgent\\EnemyAgent-1200587.pt"
             ]
         }
     },

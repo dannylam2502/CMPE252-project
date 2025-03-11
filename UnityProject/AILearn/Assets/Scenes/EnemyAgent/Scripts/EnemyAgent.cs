@@ -18,7 +18,6 @@ public class EnemyAgent : Agent
 
     private int _currentEpisode = 0;
     private float _cumulativeReward = 0f;
-    private Vector3 _orgPos = Vector3.zero; // The original pos of this gameobj
 
     public override void Initialize()
     {
@@ -26,7 +25,6 @@ public class EnemyAgent : Agent
         _renderer = GetComponent<Renderer>();
         _currentEpisode = 0;
         _cumulativeReward = 0f;
-        _orgPos = transform.position;
     }
 
     public override void OnEpisodeBegin()
@@ -41,7 +39,6 @@ public class EnemyAgent : Agent
 
     private void SpawnObjects()
     {
-        //transform.position = _orgPos;
         transform.localRotation = Quaternion.identity;
         transform.localPosition = new Vector3(0f, 0.62f, 0f);
 
@@ -50,11 +47,12 @@ public class EnemyAgent : Agent
         Vector3 randomDirection = Quaternion.Euler(0f, randomAngle, 0f) * Vector3.forward;
 
         //float randomDistance = UnityEngine.Random.Range(_minRandomGoalLoc, _maxRandomGoalLoc);
-        float randomDistance = UnityEngine.Random.Range(-bounds.extents.x, bounds.extents.x);
+        float randomDistance = UnityEngine.Random.Range(1f, 9f);
         
         Vector3 goalPosition = transform.localPosition + randomDirection * randomDistance;
 
-        //_goal.localPosition = new Vector3(goalPosition.x, 0.3f, goalPosition.z);
+        _goal.localPosition = new Vector3(goalPosition.x, 0.62f, goalPosition.z);
+        Debug.LogFormat("goalPos: {0}",_goal.localPosition);
     }
     // Return the minimum normalized distance of the closest wall.
     private float minWallProximity()
@@ -91,13 +89,17 @@ public class EnemyAgent : Agent
     {
         //Debug.Log("CollectObservationos()");
         Bounds bounds = _ground.GetComponent<Collider>().bounds;
-        float maxX = bounds.extents.x;
-        float maxZ = bounds.extents.z;
-        float goalPosX_normalized = _goal.localPosition.x / maxX;
-        float goalPosZ_normalized = _goal.localPosition.z / maxZ;
+        // float maxX = bounds.extents.x;
+        // float maxZ = bounds.extents.z;
+        float goalPosX_normalized = _goal.localPosition.x / 5f;
+        float goalPosZ_normalized = _goal.localPosition.z / 5f;
+        // float goalPosX_normalized = _goal.localPosition.normalized.x;
+        // float goalPosZ_normalized = _goal.localPosition.normalized.z;
 
-        float enemyPosX_normalized = transform.localPosition.x / maxX;
-        float enemyPosZ_normalized = transform.localPosition.z / maxZ;
+        float enemyPosX_normalized = transform.localPosition.x / 5f;
+        float enemyPosZ_normalized = transform.localPosition.z / 5f;
+        // float enemyPosX_normalized = transform.localPosition.normalized.x;
+        // float enemyPosZ_normalized = transform.localPosition.normalized.z;
         //Debug.LogFormat("goalX={0}, maxX={1}, goalPosX_normalized={2}", _goal.localPosition.x, maxX, goalPosX_normalized);
         float enemyRotation_normalized = (transform.localRotation.eulerAngles.y / 360f) * 2f - 1f;
         //float wallProximity_normalized = minWallProximity();
@@ -114,6 +116,14 @@ public class EnemyAgent : Agent
         MoveAgent(actions.DiscreteActions);
 
         AddReward(-2f / MaxStep);
+        // Treating the positions as vectors, normalize the vectors so their length is one.
+        // float distanceToTarget = Vector3.Distance(_goal.transform.localPosition, transform.localPosition);
+        // AddReward(-Math.Abs(distanceToTarget)/MaxStep);
+        // if (distance > 0){
+        //     // AddReward(-0.01f * Math.Abs(distance));
+        //     // The max distance between the vectors is if they're pointing in opposite directions: 2
+        //     AddReward(-Math.Abs(distance)/MaxStep);
+        // }
 
         _cumulativeReward = GetCumulativeReward();
 
@@ -138,9 +148,10 @@ public class EnemyAgent : Agent
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.transform.parent.CompareTag("target"))
+        // if (other.gameObject.transform.parent.CompareTag("target"))
+        if (other.gameObject.CompareTag("target"))
         {
-            Debug.LogError("Goal Reached");
+            Debug.Log("Goal Reached");
             GoalReached();
         }
     }
