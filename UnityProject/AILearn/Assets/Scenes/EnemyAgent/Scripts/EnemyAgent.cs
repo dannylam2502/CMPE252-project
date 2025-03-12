@@ -42,17 +42,17 @@ public class EnemyAgent : Agent
         transform.localRotation = Quaternion.identity;
         transform.localPosition = new Vector3(0f, 0.62f, 0f);
 
-        Bounds bounds = _ground.GetComponent<Collider>().bounds;
-        float randomAngle = UnityEngine.Random.Range(0f, 360f);
-        Vector3 randomDirection = Quaternion.Euler(0f, randomAngle, 0f) * Vector3.forward;
+        //Bounds bounds = _ground.GetComponent<Collider>().bounds;
+        //float randomAngle = UnityEngine.Random.Range(0f, 360f);
+        //Vector3 randomDirection = Quaternion.Euler(0f, randomAngle, 0f) * Vector3.forward;
 
-        //float randomDistance = UnityEngine.Random.Range(_minRandomGoalLoc, _maxRandomGoalLoc);
-        float randomDistance = UnityEngine.Random.Range(1f, 9f);
+        ////float randomDistance = UnityEngine.Random.Range(_minRandomGoalLoc, _maxRandomGoalLoc);
+        //float randomDistance = UnityEngine.Random.Range(1f, 9f);
         
-        Vector3 goalPosition = transform.localPosition + randomDirection * randomDistance;
+        //Vector3 goalPosition = transform.localPosition + randomDirection * randomDistance;
 
-        _goal.localPosition = new Vector3(goalPosition.x, 0.62f, goalPosition.z);
-        Debug.LogFormat("goalPos: {0}",_goal.localPosition);
+        //_goal.localPosition = new Vector3(goalPosition.x, 0.62f, goalPosition.z);
+        //Debug.LogFormat("goalPos: {0}",_goal.localPosition);
     }
     // Return the minimum normalized distance of the closest wall.
     private float minWallProximity()
